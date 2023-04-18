@@ -1,10 +1,6 @@
-body{
-    background-color: tomato;
-}
 h1{
     color: cornflowerblue;
 }
-.clicked{
-    color: aquamarine;
-    transition: color .5s ease-in-out;
+.hidden{
+    display: none;
 }
