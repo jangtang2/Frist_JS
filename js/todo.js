@@ -6,9 +6,10 @@ let todomem=[];
 
 function painttodo(newtodo){
     const li = document.createElement("li");
+    li.id=newtodo.id
     const span = document.createElement("span");
     const button = document.createElement("button");
-    span.innerText= newtodo;
+    span.innerText= newtodo.text;
     li.appendChild(span);
     button.innerText="❌";
     li.appendChild(button);
@@ -19,14 +20,21 @@ function todosubmit(event){
     event.preventDefault();
     const newtodo = todo_input.value;
     todo_input.value = "";
-    todomem.push(newtodo);
-    painttodo(newtodo);
+    const newtodo_OBJ={
+        text:newtodo,
+        id:Date.now()
+    }
+    todomem.push(newtodo_OBJ);
+    painttodo(newtodo_OBJ);
     savetodo(newtodo);
 }
 function deletetodo(event){
     const parent =event.target.parentElement;
     parent.remove();
+    todomem = todomem.filter((todo) => todo.id != parseInt(parent.id));
+    savetodo();
 }
+function todo_filter(item_id, delete_id){return item_id != delete_id}
 function savetodo(){
     localStorage.setItem("todos", JSON.stringify(todomem));
 }
