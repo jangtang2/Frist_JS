@@ -2,17 +2,16 @@ const todo_form = document.getElementById("todo-form");
 const todo_input = todo_form.querySelector("input");
 const todo_list = document.getElementById("todo-list");
 
-const todomem=[];
+let todomem=[];
 
 function painttodo(newtodo){
     const li = document.createElement("li");
     const span = document.createElement("span");
     const button = document.createElement("button");
-    
-    li.appendChild(span);
-    li.appendChild(button);
     span.innerText= newtodo;
+    li.appendChild(span);
     button.innerText="❌";
+    li.appendChild(button);
     button.addEventListener("click", deletetodo);
     todo_list.appendChild(li);
 }
@@ -34,6 +33,9 @@ function savetodo(){
 
 todo_form.addEventListener("submit", todosubmit);
 const saved_todos = localStorage.getItem("todos");
-if(saved_todos){
+
+if(saved_todos != null){
     const parsedtodo = JSON.parse(saved_todos);
+    todomem = parsedtodo;
+    parsedtodo.forEach(painttodo);
 }
